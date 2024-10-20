@@ -104,6 +104,38 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("should repeat the last operation when equals is pressed multiple times")
+    void testRepeatedEqualsKey() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);  // Benutzer gibt 5 ein
+        calc.pressBinaryOperationKey("+");  // Benutzer drückt Plus-Taste
+        calc.pressDigitKey(3);  // Benutzer gibt 3 ein
+        calc.pressEqualsKey();  // Benutzer drückt Gleichheitstaste (Ergebnis: 8)
+        calc.pressEqualsKey();  // Benutzer drückt erneut die Gleichheitstaste (Ergebnis sollte 11 sein, da 3 wieder hinzugefügt wird)
+
+        String expected = "11";  // 5 + 3 + 3 = 11
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);  // Dieser Test schlägt fehl, weil das Verhalten bei wiederholtem Drücken von "=" nicht implementiert ist
+    }
+
+    @Test
+    @DisplayName("should display 0 when calculating the square root of 0")
+    void testSquareRootOfZero() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(0);  // Benutzer gibt 0 ein
+        calc.pressUnaryOperationKey("√");  // Benutzer drückt die Quadratwurzel-Taste
+
+        String expected = "0";  // Quadratwurzel von 0 sollte 0 sein
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);  // Der Test schlägt fehl, wenn die Quadratwurzel von 0 falsch berechnet wird
+    }
+
+
 
 
 }
