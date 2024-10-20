@@ -83,6 +83,10 @@ public class Calculator {
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
+        // Wenn das Ergebnis "0.0" ist, wird es in "0" geändert
+        if (screen.equals("0.0")) {
+            screen = "0";
+        }
         if(screen.equals("NaN")) screen = "Error";
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
 
@@ -124,19 +128,39 @@ public class Calculator {
 
 
     public void pressEqualsKey() {
-        var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            // umwandelt string in double durch methode
-            // von klasse Double in java . Double ist eine Wrapper klasse
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
+        if (latestOperation.isEmpty()) return;  // Keine Operation ausgewählt
+
+        // Aktuellen Wert vom Bildschirm holen
+        double currentValue = Double.parseDouble(screen);
+
+        // Wenn der Bildschirm das Ergebnis der letzten Operation zeigt, dann wiederhole den letzten Operand
+        if (screen.equals(Double.toString(latestValue))) {
+            currentValue = latestValue;
+        }
+
+        // Berechne das Ergebnis der letzten Operation
+        var result = switch (latestOperation) {
+            case "+" -> latestValue + currentValue;
+            case "-" -> latestValue - currentValue;
+            case "x" -> latestValue * currentValue;
+            case "/" -> (currentValue == 0) ? Double.POSITIVE_INFINITY : latestValue / currentValue;
             default -> throw new IllegalArgumentException();
         };
+
+        // Ergebnis auf dem Bildschirm anzeigen
         screen = Double.toString(result);
-        if(screen.equals("Infinity")) screen = "Error";
-        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+
+        // Speichere den aktuellen Wert für die nächste Wiederholung
+        latestValue = currentValue;
+
+        // Fehlerbehandlung für unendliche Ergebnisse
+        if (screen.equals("Infinity")) screen = "Error";
+
+        // Entferne unnötige ".0" am Ende von Ganzzahlen
+        if (screen.endsWith(".0")) screen = screen.substring(0, screen.length() - 2);
+
+        // Begrenze die Länge des Bildschirms auf maximal 10 Zeichenff
+        if (screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
 
 
