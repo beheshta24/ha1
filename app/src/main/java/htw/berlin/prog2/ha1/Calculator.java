@@ -17,9 +17,8 @@ public class Calculator {
     /**
      * @return den aktuellen Bildschirminhalt als String
      */
-    public String readScreen() {
-        return screen;
-    }
+    public String readScreen() {return screen;}
+
 
     /**
      * Empfängt den Wert einer gedrückten Zifferntaste. Da man nur eine Taste auf einmal
@@ -120,6 +119,8 @@ public class Calculator {
     public void pressEqualsKey() {
         var result = switch(latestOperation) {
             case "+" -> latestValue + Double.parseDouble(screen);
+            // umwandelt string in double durch methode
+            // von klasse Double in java . Double ist eine Wrapper klasse
             case "-" -> latestValue - Double.parseDouble(screen);
             case "x" -> latestValue * Double.parseDouble(screen);
             case "/" -> latestValue / Double.parseDouble(screen);
