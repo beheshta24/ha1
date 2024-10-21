@@ -13,8 +13,7 @@ public class Calculator {
     private double latestValue;
 
     private String latestOperation = "";
-    private double lastOperand = 0.0;  // Speichert den letzten Operanden
-    private boolean isRepeatedEquals = false;  // Um wiederholtes Gleichzeichen zu verarbeiten test changes
+
 
 
     /**
