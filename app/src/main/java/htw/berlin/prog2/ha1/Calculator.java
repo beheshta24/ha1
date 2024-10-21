@@ -14,7 +14,7 @@ public class Calculator {
 
     private String latestOperation = "";
     private double lastOperand = 0.0;  // Speichert den letzten Operanden
-    private boolean isRepeatedEquals = false;  // Um wiederholtes Gleichzeichen zu verarbeiten
+    private boolean isRepeatedEquals = false;  // Um wiederholtes Gleichzeichen zu verarbeiten test changes
 
 
     /**
