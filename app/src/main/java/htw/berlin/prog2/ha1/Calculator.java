@@ -3,7 +3,7 @@ package htw.berlin.prog2.ha1;
 /**
  * Eine Klasse, die das Verhalten des Online Taschenrechners imitiert, welcher auf
  * https://www.online-calculator.com/ aufgerufen werden kann (ohne die Memory-Funktionen)
- * und dessen Bildschirm bis zu zehn Ziffern plus einem Dezimaltrefffffffnnzeichen darstellen kann.
+ * und dessen Bildschirm bis zu zehn Ziffern plus einem Dezimaltrennzeichen darstellen kann.
  * Enthält mit Absicht noch diverse Bugs oder unvollständige Funktionen.
  */
 public class Calculator {
@@ -76,6 +76,10 @@ public class Calculator {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
         var result = switch(operation) {
+            // Berechnet die Quadratwurzel des aktuellen Wertes auf dem Bildschirm,
+           // indem der Wert als Double interpretiert wird. Beispiel: "9" wird zu 3.0.
+           // Hinweis: Für negative Eingaben gibt Math.sqrt() NaN zurück, was später
+           // in der Methode zu "Error" auf dem Bildschirm führt.
             case "√" -> Math.sqrt(Double.parseDouble(screen));
             case "%" -> Double.parseDouble(screen) / 100;
             case "1/x" -> 1 / Double.parseDouble(screen);
@@ -127,15 +131,9 @@ public class Calculator {
 
 
     public void pressEqualsKey() {
-        if (latestOperation.isEmpty()) return;  // Keine Operation ausgewählt
 
         // Aktuellen Wert vom Bildschirm holen
         double currentValue = Double.parseDouble(screen);
-
-        // Wenn der Bildschirm das Ergebnis der letzten Operation zeigt, dann wiederhole den letzten Operand
-        if (screen.equals(Double.toString(latestValue))) {
-            currentValue = latestValue;
-        }
 
         // Berechne das Ergebnis der letzten Operation
         var result = switch (latestOperation) {

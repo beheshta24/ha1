@@ -129,11 +129,14 @@ class CalculatorTest {
         calc.pressDigitKey(0);  // Benutzer gibt 0 ein
         calc.pressUnaryOperationKey("√");  // Benutzer drückt die Quadratwurzel-Taste
 
-        String expected = "0";  // Quadratwurzel von 0 sollte 0 sein
+        String expected = "0";  // Quadratwurzel von  sollte 0 sein
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);  // Der Test schlägt fehl, wenn die Quadratwurzel von 0 falsch berechnet wird
     }
+
+
+
 
 
 
