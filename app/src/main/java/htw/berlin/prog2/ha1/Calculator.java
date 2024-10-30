@@ -131,31 +131,24 @@ public class Calculator {
 
 
     public void pressEqualsKey() {
-
         // Aktuellen Wert vom Bildschirm holen
         double currentValue = Double.parseDouble(screen);
-
         // Berechne das Ergebnis der letzten Operation
         var result = switch (latestOperation) {
             case "+" -> latestValue + currentValue;
             case "-" -> latestValue - currentValue;
             case "x" -> latestValue * currentValue;
-            case "/" -> (currentValue == 0) ? Double.POSITIVE_INFINITY : latestValue / currentValue;
+            case "/" ->  latestValue / currentValue;
             default -> throw new IllegalArgumentException();
         };
-
         // Ergebnis auf dem Bildschirm anzeigen
         screen = Double.toString(result);
-
         // Speichere den aktuellen Wert für die nächste Wiederholung
         latestValue = currentValue;
-
         // Fehlerbehandlung für unendliche Ergebnisse
         if (screen.equals("Infinity")) screen = "Error";
-
         // Entferne unnötige ".0" am Ende von Ganzzahlen
         if (screen.endsWith(".0")) screen = screen.substring(0, screen.length() - 2);
-
         // Begrenze die Länge des Bildschirms auf maximal 10 Zeichenff
         if (screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }

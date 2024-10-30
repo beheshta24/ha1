@@ -131,7 +131,7 @@ class CalculatorTest {
 
         String expected = "0";  // Quadratwurzel von  sollte 0 sein
         String actual = calc.readScreen();
-
+         // es kam 0.0 raus aber sollte 0
         assertEquals(expected, actual);  // Der Test schlägt fehl, wenn die Quadratwurzel von 0 falsch berechnet wird
     }
 
